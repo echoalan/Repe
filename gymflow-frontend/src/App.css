@@ -1,0 +1,186 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f1116;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #f3f4f6;
+}
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .4rem .8rem;
+  background: #1a1d23;
+  border-bottom: 1px solid #2a2d34;
+}
+
+.dashboard-header h1{
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background: #e63946;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+.dashboard-main h2 {
+  margin-bottom: .2rem;
+}
+
+.routines-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.routine-card {
+  background: #1a1d23;
+  border: 1px solid #2a2d34;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 200px;
+  max-width: 200px;
+}
+
+.routine-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.routines-header {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: .8rem;
+}
+
+.see-exercises-btn,
+.new-routine-btn {
+  background: #2563eb;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.containerVerExercises{
+  display: flex;
+  justify-content: end;
+}
+
+.exercises-section {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #2a2d34;
+}
+
+.exercise-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.exercise-list li {
+  background: #1c1f26;
+  border: 1px solid #2a2d34;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.exercise-list li:hover {
+  background: #242832;
+}
+
+.add-exercise-form {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.add-exercise-form input {
+  flex: 1;
+  min-width: 150px;
+  background: #111318;
+  border: 1px solid #2a2d34;
+  border-radius: 6px;
+  color: white;
+  padding: 0.5rem 0.8rem;
+}
+
+.add-exercise-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.dashboard-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+  border-top: 1px solid #2a2d34;
+  background: #0f1116;
+}
+
+
+.exercises-dropdown {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.exercises-dropdown.open {
+  max-height: 500px; /* ajustable según contenido */
+  opacity: 1;
+}
+
+.no-exercises {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+
+@media (max-width: 600px) {
+  .routine-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
