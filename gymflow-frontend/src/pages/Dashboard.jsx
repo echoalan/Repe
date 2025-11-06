@@ -78,13 +78,10 @@ export default function Dashboard() {
       </header>
 
       <main className="dashboard-main">
-        <h2>¡Hola, {user.name.split(" ")[0]}! 👋</h2>
 
         <section className="routines-section">
-          <div className="routines-header">
-            <h3>Tus rutinas</h3>
-            <button className="new-routine-btn">+ Nueva rutina</button>
-          </div>
+
+          <h3 className="subtitleRutines">Rutina</h3>
 
           {routines.length === 0 ? (
             <p className="no-routines">Aún no tienes rutinas registradas.</p>
@@ -92,29 +89,32 @@ export default function Dashboard() {
             <div className="routines-grid">
               {routines.map((routine) => (
                 <div key={routine.id} className="routine-card">
-                  <h4>{routine.day_of_week}</h4>
-                  <h3>{routine.name}</h3>
-
+                  <div
+                    className="routine-header"
+                    onClick={() =>
+                      selectedRoutine === routine.id
+                        ? setSelectedRoutine(null)
+                        : fetchExercises(routine.id)
+                    }
+                  >
+                    <h4 className="dayOfWeek">{routine.day_of_week}</h4>
+                    <h3 className="routineName">{routine.name}</h3>
+                  </div>
                   <div className="containerVerExercises">
                     <button
                       className="see-exercises-btn"
-                      onClick={() =>
-                        selectedRoutine === routine.id
-                          ? setSelectedRoutine(null)
-                          : fetchExercises(routine.id)
-                      }
+
                     >
-                      {selectedRoutine === routine.id
-                        ? "Ocultar"
-                        : "Ver ejercicios"}
+                      <span className={`triangle ${selectedRoutine === routine.id ? "open" : ""}`}>▶</span>
                     </button>
                   </div>
 
+
+
                   {/* Sección expandible */}
                   <div
-                    className={`exercises-dropdown ${
-                      selectedRoutine === routine.id ? "open" : ""
-                    }`}
+                    className={`exercises-dropdown ${selectedRoutine === routine.id ? "open" : ""
+                      }`}
                   >
                     {selectedRoutine === routine.id && (
                       <>
@@ -126,10 +126,9 @@ export default function Dashboard() {
                           <ul className="exercise-list">
                             {exercises.map((ex) => (
                               <li key={ex.id}>
-                                <strong className="exercise-name">{ex.name}</strong>
-                                <span className="exercise-reps">Repeticiones: {ex.reps}</span>
-                                <span className="exercise-sets">Series: {ex.sets}</span>
-                                <span className="exercise-weight">Ultimo peso: {ex.weight} Kg</span>
+                                <strong>{ex.name}</strong>
+                                {ex.sets && ex.reps ? ` ${ex.sets}x${ex.reps}` : ""}
+                                {ex.weight ? ` ${ex.weight}kg` : ""}
                               </li>
                             ))}
                           </ul>
@@ -139,30 +138,6 @@ export default function Dashboard() {
                           onSubmit={addExercise}
                           className="add-exercise-form"
                         >
-                          <input
-                            type="text"
-                            placeholder="Nombre del ejercicio"
-                            value={newExercise.name}
-                            onChange={(e) =>
-                              setNewExercise({
-                                ...newExercise,
-                                name: e.target.value,
-                              })
-                            }
-                            required
-                          />
-                          <input
-                            type="number"
-                            placeholder="Reps"
-                            value={newExercise.reps}
-                            onChange={(e) =>
-                              setNewExercise({
-                                ...newExercise,
-                                reps: e.target.value,
-                              })
-                            }
-                            required
-                          />
                           <button type="submit" className="new-routine-btn">
                             Agregar
                           </button>
@@ -174,6 +149,9 @@ export default function Dashboard() {
               ))}
             </div>
           )}
+          <div className="routines-header">
+            <button className="new-routine-btn">Administrar rutina</button>
+          </div>
         </section>
       </main>
 
