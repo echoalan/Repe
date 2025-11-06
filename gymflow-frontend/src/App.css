@@ -63,11 +63,12 @@ body {
   background: #1a1d23;
   border: 1px solid #2a2d34;
   border-radius: 12px;
-  padding: 1.2rem;
+  padding: .6rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
   width: 200px;
   max-width: 200px;
+  position: relative;
 }
 
 .routine-card:hover {
@@ -84,13 +85,20 @@ body {
 
 .see-exercises-btn,
 .new-routine-btn {
-  background: #2563eb;
+  background: #2563eb70;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   color: white;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+.see-exercises-btn{
+  position: absolute;
+  top: 0;
+  top: .7rem;
+  right: .7rem;
 }
 
 .containerVerExercises{
@@ -107,24 +115,49 @@ body {
 .exercise-list {
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: .4rem 0;
 }
+
 
 .exercise-list li {
-  background: #1c1f26;
-  border: 1px solid #2a2d34;
-  border-radius: 10px;
-  padding: 0.8rem 1rem;
-  margin-bottom: 0.6rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    background: #1c1f26;
+    border: 1px solid #2a2d34;
+    border-radius: 10px;
+    padding: 0.6rem;
+    margin-bottom: 0.6rem;
 }
 
-.exercise-list li:hover {
-  background: #242832;
+/* Colocamos un ancho fijo a cada “columna” */
+.exercise-name {
+  flex: 2; /* ocupa más espacio */
+    font-size: .8rem;
 }
+
+.exercise-reps {
+  flex: 1;
+  text-align: center;
+  font-size: .8rem;
+}
+
+.exercise-weight {
+  flex: 1;
+  text-align: center;
+    font-size: .8rem;
+}
+
+.exercise-sets{
+  flex: 1;
+  text-align: center;
+    font-size: .8rem;
+}
+
+
+
 
 .add-exercise-form {
   display: flex;
@@ -176,7 +209,6 @@ body {
   margin-top: 0.6rem;
   text-align: center;
 }
-
 
 @media (max-width: 600px) {
   .routine-card {

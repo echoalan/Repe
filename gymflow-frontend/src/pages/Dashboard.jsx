@@ -126,9 +126,10 @@ export default function Dashboard() {
                           <ul className="exercise-list">
                             {exercises.map((ex) => (
                               <li key={ex.id}>
-                                <strong>{ex.name}</strong>{" "}
-                                <span className="reps">{ex.reps} reps</span>
-                                <span>{ex.weight}Kg</span>
+                                <strong className="exercise-name">{ex.name}</strong>
+                                <span className="exercise-reps">Repeticiones: {ex.reps}</span>
+                                <span className="exercise-sets">Series: {ex.sets}</span>
+                                <span className="exercise-weight">Ultimo peso: {ex.weight} Kg</span>
                               </li>
                             ))}
                           </ul>
