@@ -67,6 +67,7 @@ export default function Dashboard() {
                   routine={routine}
                   selectedRoutine={selectedRoutine}
                   setSelectedRoutine={setSelectedRoutine}
+                  user={user} 
                 />
               ))}
             </div>

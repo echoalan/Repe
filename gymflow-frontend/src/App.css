@@ -430,6 +430,15 @@ html {
   transition: border-color 0.2s;
 }
 
+.weight-input{
+      background: #0f1116;
+    border: 1px solid #2c313c;
+    border-radius: 8px;
+    color: #f3f4f6;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+}
+
 /* Feedback visual opcional */
 .reps-input.good {
   border-color: #00c853;

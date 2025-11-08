@@ -2,6 +2,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoutineController;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\WorkoutSetLogController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
@@ -22,4 +24,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/routines/{routine}/exercises', [ExerciseController::class, 'store']);
     Route::put('/exercises/{exercise}', [ExerciseController::class, 'update']);
     Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy']);
+
+
+        // 🏋️ Workouts
+    Route::get('/workouts', [WorkoutController::class, 'index']);
+    Route::post('/workouts', [WorkoutController::class, 'store']);
+    Route::get('/workouts/{workout}', [WorkoutController::class, 'show']);
+    Route::delete('/workouts/{workout}', [WorkoutController::class, 'destroy']);
+
+
+        // 👇 acá va la ruta que falta
+    Route::post('/workouts/{workout}/logs', [WorkoutSetLogController::class, 'store']);
+    Route::get('/workouts/{workout}/logs', [WorkoutSetLogController::class, 'index']);
+
+
+
+
+
 });

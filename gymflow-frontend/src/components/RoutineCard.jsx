@@ -1,12 +1,16 @@
+// components/RoutineCard.jsx
 import { useRef, useEffect, useState } from "react";
 import { FiChevronRight, FiChevronDown } from "react-icons/fi";
 import ExerciseModal from "./ExerciseModal";
 
-const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine }) => {
+const API_URL = "http://127.0.0.1:8000/api";
+
+const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => {
   const isOpen = selectedRoutine === routine.id;
   const contentRef = useRef(null);
   const [height, setHeight] = useState(0);
-  const [selectedExercise, setSelectedExercise] = useState(null); // 👈 nuevo
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [workoutId, setWorkoutId] = useState(localStorage.getItem("currentWorkoutId") || null);
 
   useEffect(() => {
     if (isOpen && contentRef.current) {
@@ -18,6 +22,64 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine }) => {
 
   const toggle = () => {
     setSelectedRoutine(isOpen ? null : routine.id);
+  };
+
+const startWorkout = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!user?.id) {
+      console.error("Usuario no disponible");
+      alert("Esperando datos del usuario...");
+      return;
+    }
+
+    const res = await fetch(`${API_URL}/workouts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        routine_id: routine.id,
+        date: new Date().toISOString().split("T")[0],
+      }),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Error del servidor: ${text}`);
+    }
+
+    const data = await res.json();
+    localStorage.setItem("currentWorkoutId", data.id);
+    setWorkoutId(data.id);
+    return data.id;
+  } catch (err) {
+    console.error("Error al iniciar el workout:", err);
+  }
+};
+
+
+  const endWorkout = async () => {
+    if (!workoutId) return alert("No hay entrenamiento activo");
+    try {
+      const token = localStorage.getItem("token");
+      await fetch(`${API_URL}/workouts/${workoutId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ finished: true }),
+      });
+      localStorage.removeItem("currentWorkoutId");
+      setWorkoutId(null);
+      alert("💪 Entrenamiento finalizado correctamente");
+    } catch (err) {
+      console.error(err);
+      alert("❌ No se pudo finalizar el entrenamiento");
+    }
   };
 
   return (
@@ -68,9 +130,11 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine }) => {
                   </div>
                   <button
                     className="btnEmpezarEzercise"
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       e.stopPropagation();
-                      setSelectedExercise(ex); // 👈 abre modal
+                      let id = localStorage.getItem("currentWorkoutId");
+                      if (!id) id = await startWorkout();
+                      setSelectedExercise(ex);
                     }}
                   >
                     Empezar
@@ -81,10 +145,29 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine }) => {
           ) : (
             <p className="no-exercises">Aún no hay ejercicios.</p>
           )}
+
+          {workoutId && (
+            <button
+              className="btnFinalizarWorkout"
+              onClick={(e) => {
+                e.stopPropagation();
+                endWorkout();
+              }}
+              style={{
+                marginTop: "1rem",
+                background: "#ef4444",
+                color: "white",
+                border: "none",
+                padding: "8px 16px",
+                borderRadius: "8px",
+              }}
+            >
+              Finalizar entrenamiento
+            </button>
+          )}
         </div>
       </div>
 
-      {/* 👇 Modal dinámico */}
       {selectedExercise && (
         <ExerciseModal
           exercise={selectedExercise}
