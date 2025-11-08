@@ -10,10 +10,12 @@ body {
   color: #f3f4f6;
 }
 
-body, html {
+body,
+html {
   width: 100%;
   overflow-x: hidden;
-  max-width: 100vw; /* importante */
+  max-width: 100vw;
+  /* importante */
 }
 
 .dashboard {
@@ -31,7 +33,7 @@ body, html {
   border-bottom: 1px solid #2a2d34;
 }
 
-.dashboard-header h1{
+.dashboard-header h1 {
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -45,12 +47,12 @@ body, html {
   cursor: pointer;
   font-weight: 500;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .logout-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -62,8 +64,37 @@ body, html {
   margin: 0 auto;
 }
 
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  color: #f3f4f6;
+  font-size: 14px;
+  opacity: 0.8;
 
-.subtitleRutines{
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #00d1b2; /* color del spinner */
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.subtitleRutines {
   font-size: 1.2rem;
   margin-bottom: .6rem;
   font-weight: 500;
@@ -85,7 +116,7 @@ body, html {
   background: #1a1d23;
   border: 1px solid #2a2d34;
   border-radius: 12px;
-  padding: .6rem;
+  padding: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
   width: 200px;
@@ -105,18 +136,18 @@ body, html {
   margin-top: .8rem;
 }
 
-.dayOfWeek{
+.dayOfWeek {
   display: inline-block;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.routineName{
+.routineName {
   font-weight: 500;
 }
 
 .new-routine-btn {
-  background-color:  #384d96;
+  background-color: #384d96;
   border: none;
   padding: 0.5rem .6rem;
   border-radius: 12px;
@@ -124,7 +155,7 @@ body, html {
   cursor: pointer;
   font-weight: 500;
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .see-exercises-btn {
@@ -142,14 +173,15 @@ body, html {
 }
 
 .see-exercises-btn.open {
-  transform: rotate(90deg); /* gira el triángulo hacia abajo */
+  transform: rotate(90deg);
+  /* gira el triángulo hacia abajo */
 }
 
 
 .see-exercises-btn:hover,
 .new-routine-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
   background-color: #233c74;
 }
 
@@ -161,9 +193,14 @@ body, html {
 .triangle.open {
   transform: rotate(90deg);
 }
-.containerVerExercises{
+
+.icon-container {
   display: flex;
   justify-content: end;
+
+  position: absolute;
+  top: 1rem;
+  right: .8rem;
 }
 
 .exercises-section {
@@ -180,22 +217,23 @@ body, html {
 
 
 .exercise-list li {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* justify-content: space-between; */
-    /* align-items: center; */
-    background: #1c1f26;
-    border: 1px solid #2a2d34;
-    border-radius: 10px;
-    padding: 0.6rem;
-    margin-bottom: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  background: #1c1f26;
+  border: 1px solid #2a2d34;
+  border-radius: 10px;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Colocamos un ancho fijo a cada “columna” */
 .exercise-name {
-  flex: 2; /* ocupa más espacio */
-    font-size: .8rem;
+  flex: 2;
+  /* ocupa más espacio */
+  font-size: .8rem;
 }
 
 .exercise-reps {
@@ -207,17 +245,41 @@ body, html {
 .exercise-weight {
   flex: 1;
   text-align: center;
-    font-size: .8rem;
+  font-size: .8rem;
 }
 
-.exercise-sets{
+.exercise-sets {
   flex: 1;
   text-align: center;
-    font-size: .8rem;
+  font-size: .8rem;
 }
 
 
+.liExercise {
+  position: relative;
+}
 
+.btnEmpezarEzercise {
+  position: absolute;
+  right: 1rem;
+  top: 1.1rem;
+
+  background-color: #3d9779;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btnEmpezarEzercise:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+  background-color: #059669;
+}
 
 .add-exercise-form {
   display: flex;
@@ -252,15 +314,15 @@ body, html {
 
 
 .exercises-dropdown {
-  max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 0;
+  transition: all 0.4s ease;
 }
 
 .exercises-dropdown.open {
-  max-height: 500px; /* ajustable según contenido */
   opacity: 1;
+  max-height: 1000px; /* algo grande para cubrir cualquier lista */
 }
 
 .no-exercises {
@@ -269,6 +331,210 @@ body, html {
   margin-top: 0.6rem;
   text-align: center;
 }
+
+
+/*modal ejercicio*/
+/* === MODAL DE EJERCICIO === */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  backdrop-filter: blur(2px);
+}
+
+.exercise-modal {
+  background: #1a1d23;
+  color: #f3f4f6;
+  padding: 1.8rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.exercise-modal h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.exercise-modal p {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* === SETS === */
+.sets-inputs {
+  margin-top: .8rem;
+}
+
+.set-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: .6rem;
+  padding: 0.8rem;
+  background: #11141b;
+  border: 1px solid #2a2d34;
+  border-radius: 10px;
+}
+
+.set-row label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+/* === CONTROL DE REPETICIONES === */
+.reps-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.reps-btn {
+  background: #2a2f3a;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.reps-btn:hover {
+  background: #374151;
+  transform: scale(1.05);
+}
+
+.reps-input {
+  width: 70px;
+  text-align: center;
+  font-size: 1.2rem;
+  background: #0f1116;
+  color: #f3f4f6;
+  border: 1px solid #2c313c;
+  border-radius: 8px;
+  padding: 0.3rem;
+  transition: border-color 0.2s;
+}
+
+/* Feedback visual opcional */
+.reps-input.good {
+  border-color: #00c853;
+}
+.reps-input.bad {
+  border-color: #ff5252;
+}
+
+/* === NOTAS === */
+.set-row input[type="text"] {
+  background: #0f1116;
+  border: 1px solid #2c313c;
+  border-radius: 8px;
+  color: #f3f4f6;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.set-row input[type="text"]:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* === TIMER === */
+.timer-container {
+  text-align: center;
+}
+
+.timer-container h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.timer-buttons button {
+  background-color: #3d9779;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.timer-buttons button:hover {
+  transform: translateY(-2px);
+  background-color: #059669;
+}
+
+/* === ACCIONES === */
+.modal-actions {
+  margin-top: 1.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-actions button {
+  flex: 1;
+  margin: 0 0.4rem;
+  background-color: #384d96;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.modal-actions button:hover {
+  transform: translateY(-2px);
+  background-color: #233c74;
+}
+
+.cancel-btn {
+  background: #444;
+}
+
+.cancel-btn:hover {
+  background: #555;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .exercise-modal {
+    padding: 1rem;
+  }
+  .reps-btn {
+    padding: 0.35rem 0.7rem;
+  }
+  .reps-input {
+    width: 55px;
+    font-size: 1rem;
+  }
+}
+
+
 
 @media (max-width: 600px) {
   .routine-card {

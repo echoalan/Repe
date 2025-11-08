@@ -20,7 +20,7 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "80px auto" }}>
+    <div className="login-container">
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -41,7 +41,7 @@ export default function Login() {
             required
           />
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="login-error">{error}</p>}
         <button type="submit">Entrar</button>
       </form>
     </div>

@@ -9,7 +9,10 @@ class RoutineController extends Controller
 {
     public function index(Request $request)
     {
-        return $request->user()->routines;
+        return $request->user()
+                    ->routines()
+                    ->with('exercises')
+                    ->get();
     }
 
     public function store(Request $request)
