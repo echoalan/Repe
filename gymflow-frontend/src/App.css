@@ -30,7 +30,6 @@ html {
   align-items: center;
   padding: .6rem .8rem;
   background: #1a1d23;
-  border-bottom: 1px solid #2a2d34;
 }
 
 .dashboard-header h1 {
@@ -109,12 +108,11 @@ html {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: .8rem;
+  gap: .6rem;
 }
 
 .routine-card {
   background: #1a1d23;
-  border: 1px solid #2a2d34;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
