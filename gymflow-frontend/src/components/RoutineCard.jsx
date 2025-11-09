@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { FiChevronRight, FiChevronDown } from "react-icons/fi";
 import ExerciseModal from "./ExerciseModal";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "https://repe.coderalan.com/backend/public/api";
 
 const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => {
   const isOpen = selectedRoutine === routine.id;
@@ -64,15 +64,7 @@ const startWorkout = async () => {
   const endWorkout = async () => {
     if (!workoutId) return alert("No hay entrenamiento activo");
     try {
-      const token = localStorage.getItem("token");
-      await fetch(`${API_URL}/workouts/${workoutId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ finished: true }),
-      });
+
       localStorage.removeItem("currentWorkoutId");
       setWorkoutId(null);
       alert("💪 Entrenamiento finalizado correctamente");
