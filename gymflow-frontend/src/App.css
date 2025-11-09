@@ -41,7 +41,7 @@ html {
   background: linear-gradient(135deg, #f44336, #e91e63);
   border: none;
   padding: 0.5rem .6rem;
-  border-radius: 12px;
+  border-radius: .2rem;
   color: white;
   cursor: pointer;
   font-weight: 500;
@@ -58,9 +58,19 @@ html {
 
 .dashboard-main {
   flex: 1;
-  padding: .8rem;
-  max-width: 900px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.routines-section{
+  width: 100%;
+}
+
+.titleApp{
+  padding: .8rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .spinner-container {
@@ -72,12 +82,13 @@ html {
   color: #f3f4f6;
   font-size: 14px;
   opacity: 0.8;
-
+  width: 100%;
 }
 
 .spinner {
   border: 3px solid rgba(255, 255, 255, 0.2);
-  border-top: 3px solid #00d1b2; /* color del spinner */
+  border-top: 3px solid #00d1b2;
+  /* color del spinner */
   border-radius: 50%;
   width: 28px;
   height: 28px;
@@ -92,40 +103,22 @@ html {
 }
 
 
-
-.subtitleRutines {
-  font-size: 1.2rem;
-  margin-bottom: .6rem;
-  font-weight: 500;
-}
-
-.dashboard-main h2 {
-  margin-bottom: .2rem;
-  font-size: 1.2rem;
-}
-
 .routines-grid {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: .6rem;
+  border-top: 1px solid #1a1d23;
 }
 
 .routine-card {
-  background: #1a1d23;
-  border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
   width: 200px;
   max-width: 200px;
   position: relative;
+  border-bottom: 1px solid #1a1d23;
 }
 
-.routine-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
-}
 
 .routines-header {
   display: flex;
@@ -148,12 +141,13 @@ html {
   background-color: #384d96;
   border: none;
   padding: 0.5rem .6rem;
-  border-radius: 12px;
+  border-radius: .2rem;
   color: white;
   cursor: pointer;
   font-weight: 500;
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: fit-content;
 }
 
 .see-exercises-btn {
@@ -218,11 +212,9 @@ html {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* justify-content: space-between; */
-  /* align-items: center; */
   background: #1c1f26;
   border: 1px solid #2a2d34;
-  border-radius: 10px;
+  border-radius: .2rem;
   padding: 0.8rem;
   margin-bottom: 0.5rem;
 }
@@ -265,7 +257,7 @@ html {
   background-color: #3d9779;
   border: none;
   padding: 0.3rem 0.5rem;
-  border-radius: 8px;
+  border-radius: .2rem;
   color: white;
   cursor: pointer;
   font-weight: 500;
@@ -320,7 +312,8 @@ html {
 
 .exercises-dropdown.open {
   opacity: 1;
-  max-height: 1000px; /* algo grande para cubrir cualquier lista */
+  max-height: 1000px;
+  /* algo grande para cubrir cualquier lista */
 }
 
 .no-exercises {
@@ -350,14 +343,24 @@ html {
   padding: 1.8rem;
   border-radius: 1rem;
   width: 90%;
-  max-width: 500px;
+  /* max-width: 500px; */
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn 0.25s 
+ease;
+  height: 96%;
+  overflow: scroll;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.97); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .exercise-modal h2 {
@@ -428,19 +431,20 @@ html {
   transition: border-color 0.2s;
 }
 
-.weight-input{
-      background: #0f1116;
-    border: 1px solid #2c313c;
-    border-radius: 8px;
-    color: #f3f4f6;
-    padding: 0.4rem 0.6rem;
-    font-size: 0.9rem;
+.weight-input {
+  background: #0f1116;
+  border: 1px solid #2c313c;
+  border-radius: 8px;
+  color: #f3f4f6;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
 }
 
 /* Feedback visual opcional */
 .reps-input.good {
   border-color: #00c853;
 }
+
 .reps-input.bad {
   border-color: #ff5252;
 }
@@ -532,9 +536,11 @@ html {
   .exercise-modal {
     padding: 1rem;
   }
+
   .reps-btn {
     padding: 0.35rem 0.7rem;
   }
+
   .reps-input {
     width: 55px;
     font-size: 1rem;

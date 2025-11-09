@@ -49,9 +49,9 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <Header logout={logout} />
-
       <main className="dashboard-main">
         <section className="routines-section">
+          <h2 className="titleApp">Tu rutina</h2>
           {loading ? (
             <div className="spinner-container">
               <div className="spinner"></div>
@@ -67,12 +67,11 @@ export default function Dashboard() {
                   routine={routine}
                   selectedRoutine={selectedRoutine}
                   setSelectedRoutine={setSelectedRoutine}
-                  user={user} 
+                  user={user}
                 />
               ))}
             </div>
           )}
-
           <div className="routines-header">
             <button className="new-routine-btn">Administrar rutina</button>
           </div>
