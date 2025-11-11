@@ -37,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/workouts/{workout}/logs', [WorkoutSetLogController::class, 'store']);
     Route::get('/workouts/{workout}/logs', [WorkoutSetLogController::class, 'index']);
 
+    //historial de repes y demas
+
+    Route::get('/exercises/{exercise}/history', [WorkoutSetLogController::class, 'history']);
 
 
 

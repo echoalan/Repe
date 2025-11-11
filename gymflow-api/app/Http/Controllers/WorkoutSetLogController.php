@@ -41,4 +41,16 @@ class WorkoutSetLogController extends Controller
         $log->delete();
         return response()->noContent();
     }
+
+    public function history($exerciseId)
+    {
+        $logs = WorkoutSetLog::where('exercise_id', $exerciseId)
+            ->with(['workout' => function ($q) {
+                $q->select('id', 'date');
+            }])
+            ->orderByDesc('workout_id')
+            ->get(['id', 'workout_id', 'set_number', 'reps_done', 'weight_used', 'notes']);
+
+        return response()->json($logs);
+    }
 }

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const API_URL = "https://repe.coderalan.com/backend/public/api";
+const API_URL = "http://127.0.0.1:8000/api";
 
 const AuthContext = createContext();
 

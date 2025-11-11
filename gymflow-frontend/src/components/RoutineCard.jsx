@@ -1,8 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import { FiChevronRight, FiChevronDown } from "react-icons/fi";
 import ExerciseModal from "./ExerciseModal";
+import toast from "react-hot-toast";
 
-const API_URL = "https://repe.coderalan.com/backend/public/api";
+const API_URL = "http://127.0.0.1:8000/api";
 
 const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => {
   const isOpen = selectedRoutine === routine.id;
@@ -25,6 +26,13 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
   const toggle = () => setSelectedRoutine(isOpen ? null : routine.id);
 
   const startExercise = (exercise) => {
+    const activeExercise = currentWorkout.exercises.find(e => e.started && !e.done);
+
+    if (activeExercise && activeExercise.exerciseId !== exercise.id) {
+      toast.error(`Tenés otro ejercicio abierto: ${activeExercise.exercise.name}. Guardalo o cancelalo antes de abrir otro.`);
+      return;
+    }
+
     const exists = currentWorkout.exercises.find(e => e.exerciseId === exercise.id);
     if (!exists) {
       const initialReps = parseInt(exercise.reps) || 0;
@@ -42,10 +50,11 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
         ],
       }));
     } else {
+      // Si ya existe, marcamos como started y reiniciamos done a false
       setCurrentWorkout(prev => ({
         ...prev,
         exercises: prev.exercises.map(e =>
-          e.exerciseId === exercise.id ? { ...e, started: true } : e
+          e.exerciseId === exercise.id ? { ...e, started: true, done: false } : e
         ),
       }));
     }
@@ -54,7 +63,6 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
   };
 
   const updateExerciseSets = async (exerciseId, updatedSets) => {
-    // 1️⃣ Actualizar estado local
     setCurrentWorkout(prev => ({
       ...prev,
       exercises: prev.exercises.map(e =>
@@ -62,12 +70,14 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
       ),
     }));
 
-    if (!user) return alert("Usuario no disponible");
+    if (!user) {
+      toast.error("Usuario no disponible");
+      return;
+    }
 
     try {
       const token = localStorage.getItem("token");
 
-      // 2️⃣ Crear workout si no existe
       let workoutId = backendWorkout?.id;
       if (!workoutId) {
         const resWorkout = await fetch(`${API_URL}/workouts`, {
@@ -89,7 +99,6 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
         workoutId = workoutData.id;
       }
 
-      // 3️⃣ Guardar logs
       for (let i = 0; i < updatedSets.length; i++) {
         const set = updatedSets[i];
         await fetch(`${API_URL}/workouts/${workoutId}/logs`, {
@@ -108,9 +117,11 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
         });
       }
 
+      toast.success("✅ Ejercicio guardado correctamente");
+
     } catch (err) {
       console.error(err);
-      alert("❌ Error al guardar ejercicio");
+      toast.error("❌ Error al guardar ejercicio");
     }
   };
 
@@ -148,21 +159,64 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
             <ul className="exercise-list">
               {routine.exercises.map(ex => {
                 const exerciseState = currentWorkout.exercises.find(e => e.exerciseId === ex.id);
-                const started = exerciseState?.started;
-                const completed = exerciseState?.done;
 
                 return (
                   <li
                     key={ex.id}
                     className="liExercise"
                     style={{
-                      background: completed ? "#ffe0e0ff" : started ? "#f0f0f0" : "",
+                      border: exerciseState?.started && !exerciseState?.done ? "2px solid #4ade80" : "1px solid #ccc",
+                      borderRadius: "8px",
+                      padding: "8px",
+                      marginBottom: "6px",
                     }}
                   >
                     <div>
                       <strong>{ex.name}</strong>
                       <p>{ex.sets} x {ex.reps} {ex.weight && `${ex.weight}kg`}</p>
                     </div>
+                    <button
+                      className="btnHistorial"
+                      onClick={async e => {
+                        e.stopPropagation();
+
+                        const token = localStorage.getItem("token");
+                        if (!token) {
+                          toast.error("No hay token de autenticación");
+                          return;
+                        }
+
+                        try {
+                          const res = await fetch(`${API_URL}/exercises/${ex.id}/history`, {
+                            headers: {
+                              Authorization: `Bearer ${token}`,
+                              "Content-Type": "application/json",
+                            },
+                          });
+
+                          if (!res.ok) throw new Error("Error al obtener historial");
+                          const data = await res.json();
+
+                          console.log("Historial del ejercicio:", data);
+                          toast.success(`Historial cargado (${data.length} registros)`);
+
+                          // 👉 Podés reemplazar esto por abrir un modal en el futuro
+                          alert(
+                            data
+                              .map(
+                                l =>
+                                  `${l.workout.date.split("T")[0]} - Serie ${l.set_number}: ${l.reps_done} reps, ${l.weight_used || "-"}kg`
+                              )
+                              .join("\n")
+                          );
+                        } catch (err) {
+                          console.error(err);
+                          toast.error("No se pudo cargar el historial");
+                        }
+                      }}
+                    >
+                      Historial
+                    </button>
                     <button
                       className="btnEmpezarEzercise"
                       onClick={e => { e.stopPropagation(); startExercise(ex); }}
@@ -185,6 +239,7 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
           workoutExercise={currentWorkout.exercises.find(e => e.exerciseId === selectedExercise.id)}
           onClose={() => setSelectedExercise(null)}
           onSave={updateExerciseSets}
+          setCurrentWorkout={setCurrentWorkout}
         />
       )}
     </>
