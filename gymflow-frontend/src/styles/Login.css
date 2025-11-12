@@ -1,0 +1,111 @@
+:root {
+  --bg: #0f1116;
+  --card: #121318;
+  --muted: #9ca3af;
+  --accent: #00d1b2;
+  --accent-2: #384d96;
+  --radius: 4px;
+  --glass: rgba(255,255,255,0.03);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #0d0f13 0%, #0f1116 60%);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #e6eef2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 450px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 24px rgba(3,7,12,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+  margin-top: 2rem;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-container label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: #e6eef2;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-container input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0,209,178,0.2);
+}
+
+.login-container button {
+  background: linear-gradient(135deg, var(--accent), #059669);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #02110f;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  transition: transform 0.15s ease, opacity 0.2s;
+}
+
+.login-container button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.login-error {
+  background: rgba(255, 99, 99, 0.08);
+  color: #ff8888;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,99,99,0.1);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+
+/* Login.css */

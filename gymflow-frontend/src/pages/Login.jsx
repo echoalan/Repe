@@ -1,5 +1,7 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import '../styles/Login.css';
+
 
 export default function Login() {
   const { login } = useAuth();
@@ -7,15 +9,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
       await login(email, password);
       window.location.href = "/dashboard";
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Error al iniciar sesión");
     }
   };
 
@@ -32,6 +34,7 @@ export default function Login() {
             required
           />
         </div>
+
         <div>
           <label>Contraseña</label>
           <input
@@ -41,9 +44,15 @@ export default function Login() {
             required
           />
         </div>
+
         {error && <p className="login-error">{error}</p>}
+
         <button type="submit">Entrar</button>
       </form>
+
+      <div className="footer">
+        © {new Date().getFullYear()} Alan Rojas
+      </div>
     </div>
   );
 }

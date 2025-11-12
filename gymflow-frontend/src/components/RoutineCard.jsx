@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { FiChevronRight, FiChevronDown } from "react-icons/fi";
+import ExerciseHistoryModal from "./ExerciseHistoryModal";
 import ExerciseModal from "./ExerciseModal";
 import toast from "react-hot-toast";
 
@@ -17,6 +18,23 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
 
   const [backendWorkout, setBackendWorkout] = useState(null);
   const [selectedExercise, setSelectedExercise] = useState(null);
+
+
+  const [historyData, setHistoryData] = useState(null);
+  const [historyExercise, setHistoryExercise] = useState(null);
+
+  const [exerciseHistory, setExerciseHistory] = useState([]);
+  const [historyModalExercise, setHistoryModalExercise] = useState(null);
+
+  const fetchExerciseHistory = async (exerciseId, exerciseName) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/exercises/${exerciseId}/history`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    setExerciseHistory(data);
+    setHistoryModalExercise(exerciseName);
+  };
 
   useEffect(() => {
     if (isOpen && contentRef.current) setHeight(contentRef.current.scrollHeight);
@@ -165,54 +183,20 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
                     key={ex.id}
                     className="liExercise"
                     style={{
-                      border: exerciseState?.started && !exerciseState?.done ? "2px solid #4ade80" : "1px solid #ccc",
-                      borderRadius: "8px",
-                      padding: "8px",
-                      marginBottom: "6px",
+                      border: exerciseState?.started && !exerciseState?.done ? "1px solid #4ade80" : "border: none",
+
                     }}
                   >
                     <div>
                       <strong>{ex.name}</strong>
-                      <p>{ex.sets} x {ex.reps} {ex.weight && `${ex.weight}kg`}</p>
+                      {/*<p>{ex.sets} x {ex.reps} {ex.weight && `${ex.weight}kg`}</p>*/}
                     </div>
-                    <button
+                    <div className="containerBtnExercise">
+                       <button
                       className="btnHistorial"
-                      onClick={async e => {
+                      onClick={e => {
                         e.stopPropagation();
-
-                        const token = localStorage.getItem("token");
-                        if (!token) {
-                          toast.error("No hay token de autenticación");
-                          return;
-                        }
-
-                        try {
-                          const res = await fetch(`${API_URL}/exercises/${ex.id}/history`, {
-                            headers: {
-                              Authorization: `Bearer ${token}`,
-                              "Content-Type": "application/json",
-                            },
-                          });
-
-                          if (!res.ok) throw new Error("Error al obtener historial");
-                          const data = await res.json();
-
-                          console.log("Historial del ejercicio:", data);
-                          toast.success(`Historial cargado (${data.length} registros)`);
-
-                          // 👉 Podés reemplazar esto por abrir un modal en el futuro
-                          alert(
-                            data
-                              .map(
-                                l =>
-                                  `${l.workout.date.split("T")[0]} - Serie ${l.set_number}: ${l.reps_done} reps, ${l.weight_used || "-"}kg`
-                              )
-                              .join("\n")
-                          );
-                        } catch (err) {
-                          console.error(err);
-                          toast.error("No se pudo cargar el historial");
-                        }
+                        fetchExerciseHistory(ex.id, ex.name);
                       }}
                     >
                       Historial
@@ -223,6 +207,7 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
                     >
                       Empezar
                     </button>
+                    </div>
                   </li>
                 );
               })}
@@ -240,6 +225,15 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
           onClose={() => setSelectedExercise(null)}
           onSave={updateExerciseSets}
           setCurrentWorkout={setCurrentWorkout}
+        />
+      )}
+
+
+      {historyModalExercise && (
+        <ExerciseHistoryModal
+          history={exerciseHistory}
+          exerciseName={historyModalExercise}
+          onClose={() => setHistoryModalExercise(null)}
         />
       )}
     </>
