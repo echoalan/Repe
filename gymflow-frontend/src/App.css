@@ -261,7 +261,7 @@ html, body {
   border-radius: 1.2rem;
   width: 92%;
   max-width: 650px;
-  height: 90vh;
+  height: 99vh;
   overflow-y: auto;
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(0, 209, 178, 0.15);
@@ -472,6 +472,127 @@ html, body {
   }
 }
 
+/* === HISTORY MODAL === */
+.exercise-history-modal {
+  background: rgba(18, 22, 28, 0.9);
+  color: #f3f4f6;
+  padding: 1.5rem;
+  border-radius: 1.2rem;
+  width: 92%;
+  max-width: 650px;
+  max-height: 95vh;
+  overflow-y: auto;
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 209, 178, 0.15);
+  animation: modalPop 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* Título principal */
+.exercise-history-modal h2 {
+  font-size: 1.4rem;
+  text-align: center;
+  color: #00d1b2;
+  margin-bottom: 1rem;
+}
+
+/* Fecha (día de sesión) */
+.exercise-history-modal h4 {
+  text-transform: capitalize;
+  color: #00ffa3;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Lista de series */
+.exercise-history-modal ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0.6rem;
+}
+
+.exercise-history-modal li {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 209, 178, 0.15);
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #d1d5db;
+}
+
+.exercise-history-modal li em {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Resumen */
+.exercise-history-modal hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+}
+
+.exercise-history-modal p {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #d1d5db;
+}
+
+.exercise-history-modal strong {
+  color: #00d1b2;
+}
+
+/* Contenedor del gráfico */
+.exercise-history-modal .recharts-responsive-container {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 209, 178, 0.15);
+  margin-top: 0.6rem;
+}
+
+/* Botón cerrar */
+.exercise-history-modal button {
+  align-self: center;
+  margin-top: 1.2rem;
+  background: linear-gradient(90deg, #00d1b2 0%, #00ffa3 100%);
+  color: #0d1117;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.exercise-history-modal button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 209, 178, 0.3);
+}
+
+/* Scroll */
+.exercise-history-modal::-webkit-scrollbar {
+  width: 6px;
+}
+.exercise-history-modal::-webkit-scrollbar-thumb {
+  background: rgba(0, 209, 178, 0.3);
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .exercise-history-modal {
+    padding: 1rem;
+    width: 94%;
+  }
+}
+
+
 
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
@@ -483,3 +604,6 @@ html, body {
     padding: 1rem;
   }
 }
+
+
+

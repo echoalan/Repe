@@ -4,6 +4,13 @@ const TIMER_KEY = "exercise_timer";
 export default function ExerciseModal({ exercise, workoutExercise, onClose, onSave, setCurrentWorkout }) {
   const [setsData, setSetsData] = useState([]);
 
+    useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+    }, []); 
+
   useEffect(() => {
     if (workoutExercise?.setsData?.length) {
       setSetsData(workoutExercise.setsData);

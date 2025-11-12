@@ -5,8 +5,19 @@ export default function ExerciseHistoryModal({ history, exerciseName, onClose })
   const [groupedHistory, setGroupedHistory] = useState({});
   const [summary, setSummary] = useState({});
 
+
+      useEffect(() => {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "auto";
+      };
+    }, []); 
+
+
   useEffect(() => {
     if (!history?.length) return;
+
+
 
     // Agrupar por fecha (más legible)
     const grouped = history.reduce((acc, log) => {

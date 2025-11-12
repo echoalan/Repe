@@ -4,7 +4,7 @@ import ExerciseHistoryModal from "./ExerciseHistoryModal";
 import ExerciseModal from "./ExerciseModal";
 import toast from "react-hot-toast";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "https://repe.coderalan.com/backend/public/api";
 
 const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => {
   const isOpen = selectedRoutine === routine.id;
@@ -183,7 +183,7 @@ const RoutineCard = ({ routine, selectedRoutine, setSelectedRoutine, user }) => 
                     key={ex.id}
                     className="liExercise"
                     style={{
-                      border: exerciseState?.started && !exerciseState?.done ? "1px solid #4ade80" : "border: none",
+                      border: exerciseState?.started && !exerciseState?.done ? "1px solid #4ade80" : "1px solid #212429",
 
                     }}
                   >

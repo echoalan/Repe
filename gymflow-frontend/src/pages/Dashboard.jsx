@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
 
-  const API_URL = "http://127.0.0.1:8000/api";
+  const API_URL = "https://repe.coderalan.com/backend/public/api";
 
   useEffect(() => {
     if (!user) {
